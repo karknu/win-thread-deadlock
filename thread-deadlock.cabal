@@ -1,0 +1,70 @@
+cabal-version: 1.12
+
+name:           thread-deadlock
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/karknu/win-thread-deadlock#readme>
+homepage:       https://github.com/karknu/win-thread-deadlock#readme
+bug-reports:    https://github.com/karknu/win-thread-deadlock/issues
+author:         Karl Knutsson
+maintainer:     karl.knutsson@iohk.io
+copyright:      2019 IOHK
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/karknu/win-thread-deadlock
+
+library
+  exposed-modules:
+      Socket
+  other-modules:
+      Paths_thread_deadlock
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+    , async
+    , bytestring
+    , network
+  default-language: Haskell2010
+
+executable thread-deadlock-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_thread_deadlock
+  hs-source-dirs:
+      app
+  ghc-options: -rtsopts 
+  build-depends:
+      base
+    , thread-deadlock
+  default-language: Haskell2010
+
+executable nthread-deadlock-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_thread_deadlock
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base
+    , thread-deadlock
+  default-language: Haskell2010
+
+
+test-suite thread-deadlock-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_thread_deadlock
+  hs-source-dirs:
+      test
+  build-depends:
+      base >=4.7 && <5
+    , thread-deadlock
+  default-language: Haskell2010
